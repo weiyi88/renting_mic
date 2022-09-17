@@ -41,7 +41,18 @@
         go install 后 在GOPATH bin目录下，有可执行文件，放入 PATH中
 
 2，使用
+    (1)protobuf 语法 ，向下兼容
+        protobuf 3 可以使用protobuf 2 语法， protobuf2 不能使用protobuf3 语法
 
+   （2）protocol 编译器
+        protoc --proto_path= IMPORT_PATH --cpp_out=DST_DIR --python_out=DST_DIR -- go_out=DST_DIR path/to/file.proto
+
+        IMPORT_PATH 声明一个 .proto 文件所在的解析import具体目录，忽略则使用当前目录，多个可以多次调用--proto_path
+
+        --go_out 在目标目录DST_DIR 中产生Go代码
+
+   （3）测试
+        protobuf 使用是将，数据结构写入.proto 文件中，使用 protoc 编译器得到一个新的go包，
 
 
 // git 要输入 Username for 'https://github.com': 情况
