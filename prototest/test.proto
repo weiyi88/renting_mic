@@ -1,0 +1,10 @@
+syntax = "proto3";
+package myproto;
+option go_package="server/proto/gen/go;test";
+
+message Test {
+  string name = 1;
+  int32 stature = 2;
+  repeated int64 weight =3;
+  string motto = 4;
+}
