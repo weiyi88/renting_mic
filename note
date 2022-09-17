@@ -20,3 +20,30 @@
 调度管理服务发现          consul
 微服务的框架             micro
 部署                    docker
+
+
+三，protobuf
+
+优点：
+    数据化格式可以随意编写
+
+缺点：
+    功能简单，无法表示复杂概念
+    如果没有    .proto定义    否则无法独处protobuf任何内容
+
+
+1,安装
+    （1）protobuf安装
+        https://github.com/protocolbuffers/protobuf
+        下载对应系统，放入PATH中
+    （2）go 语言插件安装
+        https://github.com/grpc-ecosystem/grpc-gateway
+        go install 后 在GOPATH bin目录下，有可执行文件，放入 PATH中
+
+2，使用
+
+
+
+// git 要输入 Username for 'https://github.com': 情况
+Username => git 邮箱名
+password => git tocken  不是密码
