@@ -88,6 +88,56 @@
         func (t *T) MethodName(argType T1, relyType *T2)error
 
 
+四，服务发现  Consul
+    1，consul 角色
+    client 客户端无状态，将http 和 dns 接口请求转发给局域网内的服务端集群
+    server 服务端，保存配置信息，高可用集群，在局域网与本地客户端通讯，通过广域网与其他数据中心通讯，每个数据中心的server数量推荐为3-5个
+
+    2，运行consul代理
+    consul 是典型的 C/S 架构， 可以运行服务模式或者客户模式。每一个数据中心必须至少有个一个服务节点，非常不建议只运行一个服务节点，因为节点失效情况下数据极大的丢失风险。
+
+    3，运行Agent
+    完成按轧辊后，必须运行agent，agent 可以运行为server或者 client 模式，每一个数据中心至少必须拥有一台server。
+
+    其他的 agent 运行为client 模式，一个client 是一个非常轻量级的进程，用于注册服务，运行健康检查和转发对server的查询，agent必须在集群中的每个主机上运行
+
+    （1）命令
+        consul agent -server -bootstrap-expect 2 -data-dir /tmp/consul -node=n1 -bind=192.168.110.123 -ui -config-dir /etc/consul.d
+        -rejon -join 192.168.110.123 -client 0.0.0.0
+
+        -server     定义agent 运行在server模式
+        -bootstrap-expect   在一个datacenter中期望提供server节点数目，当该值提供的时候，consul一只等到达到指定的server数量时候才会引导整个集群，该标记不能和bootstrap共用
+        -data-dir   提供一个目录来存放agent 的状态，所有agent 允许都需要该目录，必须是稳定的，系统重起都继续存在
+        -node       节点在集群中的名称，在一个集群中必须是唯一的，默认是该节点的主机名
+        -bind       该地址用来在集群内部的通讯，集群内的所有节点到底值都必须是可达的，默认是 0.0.0.0
+        -ui         启动web界面
+        -config-dir 配置文件目录，里面所有 .json 结尾的文件都会被加载
+        -rejoin     使consul 忽略先前的离开，在再次启动后仍旧尝试加入集群中
+        -client     consul 服务监听地址，整个提供http、dns、rpc等服务，默认是127.0.0.1 所以不对外提供服务， 要对外提供服务改成 0.0.0.0
+        -join       启动时候加入该集群
+
+
+
+
+
+
 // git 要输入 Username for 'https://github.com': 情况
 Username => git 邮箱名
 password => git tocken  不是密码
+
+
+
+consul 配置
+{
+    "service":{
+        "name":"web",
+        "tags":["master"],
+        "address":"127.0.0.1",
+        "port":9021,
+        "check":[
+        {
+        "http":"http://locahost:9021/health",
+        "interval":"10s",
+        }]
+    }
+}
