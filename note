@@ -117,6 +117,18 @@
         -join       启动时候加入该集群
 
 
+五，微服务micro
+    1，使用
+        通过指定相对与 $GOPATH 的目录路径，创建一个新的微服务
+
+        micro new [command options ] [ arguments....]
+        -- namespace    命名空间
+        --type          服务类型，api, fnc , srv ,web
+        --fqdn          服务的正式定义全面
+        --alias         别名，作为组合的一部分使用的短名称
+
+        run             运行这个微服务
+
 
 
 
